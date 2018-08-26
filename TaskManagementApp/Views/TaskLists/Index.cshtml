@@ -1,17 +1,46 @@
-﻿@model IEnumerable<TaskManagementApp.Models.TaskList>
+﻿@model TaskManagementApp.Models.TaskList
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div id="taskCreateForm">
+    @using (Ajax.BeginForm("AJAXCreate", "TaskLists",
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    UpdateTargetId = "tableDiv"
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div id="tableDiv"></div>
+                }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create Task" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
+
+<div id="tableDiv" class="mt-5"></div>
 @section Scripts {
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Custom_Scripts/BuildTable.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
     }

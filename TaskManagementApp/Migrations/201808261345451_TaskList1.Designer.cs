@@ -13,7 +13,7 @@ namespace TaskManagementApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201808241811384_TaskList1"; }
+            get { return "201808261345451_TaskList1"; }
         }
         
         string IMigrationMetadata.Source

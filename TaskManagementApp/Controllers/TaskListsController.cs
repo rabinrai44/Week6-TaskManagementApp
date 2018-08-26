@@ -22,13 +22,17 @@ namespace TaskManagementApp.Controllers
             return View();
         }
 
-        public ActionResult BuildTaskTable()
+        private IEnumerable<TaskList> GetMyTaskLists()
         {
             //Users task list authentication only show task if user created
             string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            return PartialView("_TaskListTable", 
-                db.TaskLists.ToList().Where(x => x.User == currentUser));
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);          
+          return db.TaskLists.ToList().Where(x => x.User == currentUser);
+        }
+
+        public ActionResult BuildTaskTable()
+        {
+            return PartialView("_TaskListTable", GetMyTaskLists());
         }
 
         // GET: TaskLists/Details/5
@@ -57,7 +61,7 @@ namespace TaskManagementApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Decription,DueDate,IsTaskDone")] TaskList taskList)
+        public ActionResult Create([Bind(Include = "Id,Description,DueDate,IsTaskDone")] TaskList taskList)
         {
             if (ModelState.IsValid)
             {
@@ -74,6 +78,27 @@ namespace TaskManagementApp.Controllers
             }
 
             return View(taskList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AJAXCreate([Bind(Include = "Id,Description,DueDate")] TaskList taskList)
+        {
+            if (ModelState.IsValid)
+            {
+                //current user who is creating task the is associate with his/her user ID to task list
+                string currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.FirstOrDefault
+                    (x => x.Id == currentUserId);
+                taskList.User = currentUser;
+                taskList.IsTaskDone = false;
+                db.TaskLists.Add(taskList);
+
+                db.TaskLists.Add(taskList);
+                db.SaveChanges();              
+            }
+
+            return PartialView("_TaskListTable", GetMyTaskLists());
         }
 
         // GET: TaskLists/Edit/5
@@ -96,7 +121,7 @@ namespace TaskManagementApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Decription,DueDate,IsTaskDone")] TaskList taskList)
+        public ActionResult Edit([Bind(Include = "Id,Description,DueDate,IsTaskDone")] TaskList taskList)
         {
             if (ModelState.IsValid)
             {

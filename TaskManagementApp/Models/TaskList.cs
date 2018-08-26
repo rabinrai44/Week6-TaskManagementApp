@@ -8,7 +8,7 @@ namespace TaskManagementApp.Models
     public class TaskList
     {
         public int Id { get; set; }
-        public string Decription { get; set; }
+        public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsTaskDone { get; set; }
         public virtual ApplicationUser User { get; set; }

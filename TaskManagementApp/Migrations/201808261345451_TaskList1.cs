@@ -35,7 +35,7 @@ namespace TaskManagementApp.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Decription = c.String(),
+                        Description = c.String(),
                         DueDate = c.DateTime(nullable: false),
                         IsTaskDone = c.Boolean(nullable: false),
                         User_Id = c.String(maxLength: 128),

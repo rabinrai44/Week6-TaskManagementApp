@@ -1,11 +1,11 @@
 namespace TaskManagementApp.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using TaskManagementApp.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TaskManagementApp.Models.ApplicationDbContext>
@@ -24,13 +24,12 @@ namespace TaskManagementApp.Migrations
             AddUsers(context);
         }
 
-        //creating user by default (seed)
         void AddUsers(TaskManagementApp.Models.ApplicationDbContext context)
         {
             var user = new ApplicationUser { UserName = "user1@email.com" };
-            var userManager = new UserManager<ApplicationUser>(
+            var um = new UserManager<ApplicationUser>(
                     new UserStore<ApplicationUser>(context));
-            userManager.Create(user, "password");
-        }
+            um.Create(user, "password");
+        } 
     }
 }
