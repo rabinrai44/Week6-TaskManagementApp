@@ -18,14 +18,13 @@ namespace TaskManagementApp.Controllers
         // GET: TaskLists
         public ActionResult Index()
         {
-            //Users task list authentication only show task if user created
-            string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            return View(db.TaskLists.ToList().Where(x => x.User == currentUser));
+
+            return View();
         }
 
         public ActionResult BuildTaskTable()
         {
+            //Users task list authentication only show task if user created
             string currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
             return PartialView("_TaskListTable", 
