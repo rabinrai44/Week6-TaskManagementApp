@@ -113,6 +113,14 @@ namespace TaskManagementApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            if (taskList.User != currentUser)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View(taskList);
         }
 
@@ -130,6 +138,29 @@ namespace TaskManagementApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(taskList);
+        }
+
+        // AJAX Edit, it modified the task status whether users checkbox is checked and save to the db
+        [HttpPost]
+        public ActionResult AJAXEditStatus(int? id, bool value)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TaskList taskList = db.TaskLists.Find(id);
+            if (taskList == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                taskList.IsTaskDone = value;
+                db.Entry(taskList).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return PartialView("_TaskListTable", GetMyTaskLists());
         }
 
         // GET: TaskLists/Delete/5

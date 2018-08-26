@@ -2,13 +2,13 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.IsTaskDone)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsTaskDone)
         </th>
         <th></th>
     </tr>
@@ -17,13 +17,13 @@
     {
         <tr>
             <td>
+                @Html.CheckBoxFor(modelItem => item.IsTaskDone, new { id=item.Id, @class = "ActiveCheck" })
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsTaskDone)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
@@ -34,4 +34,6 @@
     }
 
 </table>
+
+<script src="~/Custom_Scripts/AddCheckBoxListener.js"></script>
 
