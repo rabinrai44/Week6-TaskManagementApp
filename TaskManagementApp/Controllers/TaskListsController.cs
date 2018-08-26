@@ -24,6 +24,14 @@ namespace TaskManagementApp.Controllers
             return View(db.TaskLists.ToList().Where(x => x.User == currentUser));
         }
 
+        public ActionResult BuildTaskTable()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return PartialView("_TaskListTable", 
+                db.TaskLists.ToList().Where(x => x.User == currentUser));
+        }
+
         // GET: TaskLists/Details/5
         public ActionResult Details(int? id)
         {
