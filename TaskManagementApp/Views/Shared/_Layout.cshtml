@@ -20,6 +20,8 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("TaskList", "Index", "TaskLists", new { @class = "nav-link" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
