@@ -1,10 +1,10 @@
 ﻿@model TaskManagementApp.Models.TaskList
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Task";
 }
 
-<h2>Edit</h2>
+<h2 class="display-4 mt-5">Edit Task</h2>
 
 
 @using (Html.BeginForm())
@@ -12,8 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TaskList</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -45,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Update Task" class="btn btn-outline-primary" />
             </div>
         </div>
     </div>
