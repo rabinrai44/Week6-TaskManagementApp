@@ -1,47 +1,54 @@
 ﻿@model IEnumerable<TaskManagementApp.Models.TaskList>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IsTaskDone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="card-header">
+    <h5 class="card-title">My Task Lists</h5>
+</div>
+<table class="table table-hover">
+    <thead>
         <tr>
-            <td>
-               
-                @Html.CheckBoxFor(modelItem => item.IsTaskDone, new { id=item.Id, @class = "ActiveCheck" })
-            </td>
-            <td>
-                @if (!item.IsTaskDone)
-                {
-                    @Html.DisplayFor(modelItem => item.Description)
-                }
-                else
-                {
-                <div class="CompltedTask">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </div>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            <th class="col-xm-1">
+                @Html.DisplayNameFor(model => model.IsTaskDone)
+            </th>
+            <th class="col-xm-6 mr-auto">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-xm-2">
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th class="col-xm-2">Options</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+
+                    @Html.CheckBoxFor(modelItem => item.IsTaskDone, new { id = item.Id, @class = "ActiveCheck" })
+                </td>
+                <td>
+                    @if (!item.IsTaskDone)
+                    {
+                        @Html.DisplayFor(modelItem => item.Description)
+                    }
+                    else
+                    {
+                        <div class="CompltedTask">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </div>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) | 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) 
+                </td>
+            </tr>
+        }
+
+    </tbody>
 
 </table>
 
