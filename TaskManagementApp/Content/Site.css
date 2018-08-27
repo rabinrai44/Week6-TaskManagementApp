@@ -1,8 +1,4 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
+﻿
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -24,6 +20,19 @@ textarea {
 }
 
 /* Custom Styled */
+
+.cover-landing {
+    height: 100vh;
+    padding-top: 123px;
+    padding-bottom: 96px;
+    background-image: linear-gradient(rgba(255,255,255, 0.85), rgba(255,255,255, 1)), url("https://images.unsplash.com/photo-1523289333742-be1143f6b766?ixlib=rb-0.3.5…EyMDd9&s=ce68577…&auto=format&fit=crop&w=2250&q=80");
+    background-attachment: fixed;
+}
+
+    .cover-landing .display-4 {
+        color: #007bff;
+    }
+
 .CompltedTask {
     text-decoration: line-through;
 }
